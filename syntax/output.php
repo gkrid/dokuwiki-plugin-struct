@@ -21,12 +21,6 @@ class syntax_plugin_struct_output extends DokuWiki_Syntax_Plugin {
     const XHTML_CLOSE = '</div>';
 
     /**
-     * Class names of renderers which should NOT render struct data.
-     * All descendants are also blacklisted.
-     */
-    const BLACKLIST_RENDERER = array('Doku_Renderer_metadata');
-
-    /**
      * @return string Syntax mode type
      */
     public function getType() {
@@ -89,11 +83,8 @@ class syntax_plugin_struct_output extends DokuWiki_Syntax_Plugin {
         global $ID;
         global $INFO;
         global $REV;
-
-        foreach (self::BLACKLIST_RENDERER as $blacklisted) {
-            if ($R instanceof $blacklisted) {
-                return true;
-            }
+        if (!in_array(act_clean($ACT), ['show', 'export_html'])) {
+            return true;
         }
         if($ID != $INFO['id']) return true;
         if(!$INFO['exists']) return true;
