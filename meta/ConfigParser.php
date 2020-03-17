@@ -38,6 +38,7 @@ class ConfigParser {
             'schemas' => array(),
             'sort' => array(),
             'csv' => true,
+            'rowcolor' => ''
         );
         // parse info
         foreach($lines as $line) {
@@ -114,6 +115,9 @@ class ConfigParser {
                 case 'target':
                 case 'page':
                     $this->config['target'] = cleanID($val);
+                    break;
+                case 'rowcolor':
+                    $this->config['rowcolor'] = trim($val);
                     break;
                 default:
                     $data = array('config' => &$this->config, 'key' => $key, 'val' => $val);

@@ -361,6 +361,20 @@ class AggregationTable {
         if($this->mode == 'xhtml') {
             $pid = $this->resultPIDs[$rownum];
             $this->renderer->doc = substr(rtrim($this->renderer->doc), 0, -1); // remove closing '>'
+            if ($this->data['rowcolor']) {
+                $rowcolor_column = $this->data['rowcolor'];
+                $bgcolor = '';
+                /** @var Value $value */
+                foreach($row as $colnum => $value) {
+                    $col = $value->getColumn()->getLabel();
+                    if ($col == $rowcolor_column) {
+                        $bgcolor = $value->getRawValue();
+                    }
+                }
+                if ($bgcolor) {
+                    $this->renderer->doc .= ' style="background-color: '.$bgcolor.'"';
+                }
+            }
             $this->renderer->doc .= ' data-pid="' . hsc($pid) . '">';
         }
 
