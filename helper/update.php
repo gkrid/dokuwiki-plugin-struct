@@ -1,6 +1,7 @@
 <?php
 use dokuwiki\plugin\struct\meta\AccessTable;
 use dokuwiki\plugin\struct\meta\AccessTableLookup;
+use dokuwiki\plugin\struct\meta\Assignments;
 use dokuwiki\plugin\struct\meta\Schema;
 use dokuwiki\plugin\struct\meta\StructException;
 
@@ -50,17 +51,38 @@ class helper_plugin_struct_update extends helper_plugin_bureaucracy_action {
 
         try {
             if (page_exists($page)) {
-                $helper->saveData($page_row_id, $tosave);
-            } else {
-                // we assume that we have only one lookup
-                if (count($tosave) > 1) {
-                    throw new Exception('Only one lookup table per struct_update action allowed.');
+                $assignments = Assignments::getInstance();
+                $tables = $assignments->getPageAssignments($ID);
+
+                $schemadata = [];
+                foreach($tables as $table) {
+                    $schema = AccessTable::byTableName($table, $page);
+                    if(!$schema->getSchema()->isEditable()) {
+                        throw new Exception("Schema $table is not editable");
+                    }
+                    $schemadata[$table] = [];
+                    foreach ($schema->getData() as $col => $value) {
+                        $schemadata[$table][$col] = $value->getRawValue();
+                    }
                 }
-                $table = key($tosave);
-                $data = current($tosave);
-                $schema = new Schema($table, 0, true);
-                $access = new AccessTableLookup($schema, $page_row_id);
-                $helper->saveLookupData($access, $data);
+
+                foreach ($schemadata as $table => $cols) {
+                    if (isset($tosave[$table])) {
+                        $schemadata[$table] = array_replace($schemadata[$table], $tosave[$table]);
+                    }
+                }
+                $helper->saveData($page, $schemadata);
+            } else {
+                throw new Exception('Update for lookups not implemented yet.');
+                // we assume that we have only one lookup
+//                if (count($tosave) > 1) {
+//                    throw new Exception('Only one lookup table per struct_update action allowed.');
+//                }
+//                $table = key($tosave);
+//                $data = current($tosave);
+//                $schema = new Schema($table, 0, true);
+//                $access = new AccessTableLookup($schema, $page_row_id);
+//                $helper->saveLookupData($access, $data);
             }
         } catch(Exception $e) {
             msg($e->getMessage(), -1);
