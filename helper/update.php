@@ -69,7 +69,7 @@ class helper_plugin_struct_update extends helper_plugin_bureaucracy_action {
 
         // set thank you message
         if(!$thanks) {
-            $thanks = sprintf($this->getLang('bureaucracy_action_struct_lookup_thanks'), wl($ID));
+            $thanks = sprintf($this->getLang('bureaucracy_action_struct_update_thanks'), wl($ID));
         } else {
             $thanks = hsc($thanks);
         }

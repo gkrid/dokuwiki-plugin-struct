@@ -122,5 +122,6 @@ $lang['lookup new entry'] = 'Create new Entry';
 $lang['js']['lookup_delete'] = 'Delete Entry';
 
 $lang['bureaucracy_action_struct_lookup_thanks'] = 'The entry has been stored. <a href="%s">Add another entry</a>.';
+$lang['bureaucracy_action_struct_update_thanks'] = 'The entry has been updated. <a href="%s">Refresh the page</a> to see the results.';
 
 //Setup VIM: ex: et ts=4 :
