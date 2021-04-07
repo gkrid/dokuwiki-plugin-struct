@@ -32,7 +32,7 @@ class helper_plugin_struct extends DokuWiki_Plugin
      * All descendants are also blacklisted.
      */
     const BLACKLIST_RENDERER = [
-        'Doku_Renderer_metadata',
+//        'Doku_Renderer_metadata',
         '\renderer_plugin_qc'
     ];
 
