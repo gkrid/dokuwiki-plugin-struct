@@ -325,9 +325,7 @@ class Schema
         if (!$withDisabled) {
             return array_filter(
                 $this->columns,
-                function (Column $col) {
-                    return $col->isEnabled();
-                }
+                static fn(Column $col) => $col->isEnabled()
             );
         }
 

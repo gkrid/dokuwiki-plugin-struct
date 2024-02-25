@@ -38,7 +38,7 @@ class action_plugin_struct_aggregationeditor extends ActionPlugin
     /**
      * Registers a callback function for a given event
      *
-     * @param Doku_Event_Handler $controller DokuWiki's event controller object
+     * @param EventHandler $controller DokuWiki's event controller object
      * @return void
      */
     public function register(EventHandler $controller)
@@ -50,7 +50,7 @@ class action_plugin_struct_aggregationeditor extends ActionPlugin
     /**
      * Add user's permissions to JSINFO
      *
-     * @param Doku_Event $event
+     * @param Event $event
      */
     public function addJsinfo(Event $event)
     {
@@ -61,7 +61,7 @@ class action_plugin_struct_aggregationeditor extends ActionPlugin
 
 
     /**
-     * @param Doku_Event $event
+     * @param Event $event
      */
     public function handleAjax(Event $event)
     {
