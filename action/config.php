@@ -18,7 +18,7 @@ class action_plugin_struct_config extends ActionPlugin
     /**
      * Registers a callback function for a given event
      *
-     * @param Doku_Event_Handler $controller DokuWiki's event controller object
+     * @param EventHandler $controller DokuWiki's event controller object
      * @return void
      */
     public function register(EventHandler $controller)
@@ -30,7 +30,7 @@ class action_plugin_struct_config extends ActionPlugin
     /**
      * Reconfigure config for a given type
      *
-     * @param Doku_Event $event event object by reference
+     * @param Event $event event object by reference
      * @param mixed $param [the parameters passed as fifth argument to register_hook() when this
      *                           handler was registered]
      */
@@ -54,7 +54,7 @@ class action_plugin_struct_config extends ActionPlugin
     /**
      * Add config options to JSINFO
      *
-     * @param Doku_Event $event
+     * @param Event $event
      */
     public function addJsinfo(Event $event)
     {
